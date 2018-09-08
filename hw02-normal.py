@@ -58,7 +58,7 @@ print('{} {} {} года'.format(a2_list4[0], a2_list4[1], a2_list4[2], ))
 import random
 
 a3_list = []
-a3_range = 12 # n - элементов
+a3_range = 12  # n - элементов
 i = 0
 
 while i < a3_range:
@@ -73,3 +73,18 @@ print(a3_list)
 # например, lst = [1, 2, 4, 5, 6, 2, 5, 2], нужно получить lst2 = [1, 2, 4, 5, 6]
 # б) элементы исходного списка, которые не имеют повторений:
 # например, lst = [1 , 2, 4, 5, 6, 2, 5, 2], нужно получить lst2 = [1, 4, 6]
+
+a4_lst = [1, 2, 4, 5, 6, 2, 5, 2]
+a4_lst2 = list(set(a4_lst))
+
+print(a4_lst2)
+
+a4_lst3 = []
+
+for a4_unit in a4_lst:
+    a4_count = a4_lst.count(a4_unit)
+
+    if a4_count == 1:
+        a4_lst3.append(a4_unit)
+
+print(a4_lst3)
