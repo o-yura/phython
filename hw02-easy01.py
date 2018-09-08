@@ -22,6 +22,19 @@ for a1_num, a1_unit in enumerate(a1_list1):
 # Даны два произвольные списка.
 # Удалите из первого списка элементы, присутствующие во втором списке.
 
+a2_list1 = [1, 2, 'a', 'b', 'cd', 2, 'a', 'ef']
+a2_list2 = [2, 3, 'e', 'b', 'cd', 'a']
+
+for a2_unit in a2_list2:
+    a2_count = a2_list1.count(a2_unit)
+
+    if a2_count:
+        i = 0
+        while i < a2_count:
+            a2_list1.remove(a2_unit)
+            i += 1
+
+print(a2_list1)
 
 # Задача-3:
 # Дан произвольный список из целых чисел.
