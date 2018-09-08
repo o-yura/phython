@@ -16,7 +16,7 @@
 a1_list1 = ["яблоко", "банан", "жорик вартанов", "киви", "груша"]
 
 for a1_num, a1_unit in enumerate(a1_list1):
-    print('{}. {:>{}}'.format(a1_num, a1_unit, len(max(a1_list1, key=len))))
+    print('{0}. {1:>{2}}'.format(a1_num, a1_unit, len(max(a1_list1, key=len))))
 
 # Задача-2:
 # Даны два произвольные списка.
