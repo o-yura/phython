@@ -32,9 +32,30 @@ print(a1_y)
 date = '01.11.1985'
 
 # Примеры некорректных дат
-date = '01.22.1001'
-date = '1.12.1001'
-date = '-2.10.3001'
+# date = '01.22.1001'
+# date = '1.12.1001'
+# date = '-2.10.3001'
+
+a2_result = False
+a2_day, a2_month, a2_year = date.split('.')
+
+if a2_day.isdigit() and len(a2_day) == 2:
+    if a2_month.isdigit() and len(a2_month) == 2:
+        if a2_year.isdigit() and len(a2_year) == 4:
+
+            a2_day = int(a2_day)
+            a2_month = int(a2_month)
+            a2_year = int(a2_year)
+
+            if (1 <= a2_year <= 9999 and 1 <= a2_month <= 12 and 1 <= a2_day <= 31):
+                a2_result = True
+                if (a2_day == 31 and (a2_month in [2, 4, 5, 9, 11])):
+                    a2_result = False
+
+if a2_result:
+    print('Дата корректна')
+else:
+    print('Дата не корректна')
 
 # Задание-3: "Перевёрнутая башня" (Задача олимпиадного уровня)
 #
