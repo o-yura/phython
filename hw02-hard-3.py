@@ -46,19 +46,22 @@ while True:
         break
     triger_1 = triger_0
 
-print('Множество = {}, Последний эл.мн = {}, Первый эл.мн = {}, Комната = {}'.format(i, triger_0, triger_1, number))
+# print('Множество = {}, Последний эл.мн = {}, Первый эл.мн = {}, Комната = {}'.format(i, triger_0, triger_1, number))
 
+# номер на этаже - остаток от деления положения в множестве на размер множества
 num_in_floor = (number - triger_1) % i
+
+# если остаток 0, значит последний на этаже
+if num_in_floor == 0:
+    num_in_floor = i
 
 # этаж во множестве
 floor = (number - triger_1 - 1) // i + 1
 
-if num_in_floor == 0:
-    num_in_floor = i
-
 # количество множеств ниже
 num_mn = i - 1
 
+# добавляем этажи во множествах ниже
 while num_mn:
     floor += num_mn
     num_mn -= 1
