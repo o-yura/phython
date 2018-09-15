@@ -21,7 +21,9 @@ a1_enemy = dict(name=a1_e_name, health=100, damage=7)
 
 
 def a1_attack(person1, person2):
-    person2.update(health=person2.get('health') - person1.get('damage'))
+    damage = person1.get('damage')
+    health = person2.get('health') - damage
+    person2.update(health)
 
 
 a1_attack(a1_player, a1_enemy)
