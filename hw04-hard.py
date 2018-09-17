@@ -31,7 +31,8 @@ def check_account(person):
 
 
 def withdraw_money(person, money):
-    if person['money'] - money == 0:
+    diff = person['money'] - money
+    if diff >= 0:
         person['money'] -= money
         return 'Вы сняли {} рублей.'.format(money)
     else:
@@ -39,20 +40,40 @@ def withdraw_money(person, money):
 
 
 def process_user_choice(choice, person):
-    if choice == '1':
-        print(check_account(person))
-    elif choice == '2':
-        count = float(input('Сумма к снятию:'))
-        print(withdraw_money(person, count))
+    if choice == 1:
+        print('Остаток на карте: ', check_account(person))
+    elif choice == 2:
+        try:
+            count = float(input('Сумма к снятию:'))
+            print(withdraw_money(person, count))
+        except ValueError:
+            print('Введены не корректные данные!')
+        except Exception as e:
+            print(e.__class__)
+    else:
+        print('Введите номер доступного пункта меню')
+
+
+def get_user_data():
+    try:
+        card_number, pin_code = input('Введите номер карты и пин код через пробел:').split()
+        card_number = int(card_number)
+        pin_code = int(pin_code)
+        person = get_person_by_card(card_number)
+        if person and is_pin_valid(person, pin_code):
+            return person
+        else:
+            print('Номер карты или пин код введены не верно!')
+            return False
+    except ValueError:
+        print('Введены не корректные данные!')
+    except Exception as e:
+        print(e.__class__)
 
 
 def start():
-    card_number, pin_code = input('Введите номер карты и пин код через пробел:').split()
-
-    card_number = int(card_number)
-    pin_code = int(pin_code)
-    person = get_person_by_card(card_number)
-    if person and is_pin_valid(person, pin_code):
+    person = get_user_data()
+    if person:
         while True:
             choice = int(input('Выберите пункт:\n'
                                '1. Проверить баланс\n'
@@ -60,11 +81,10 @@ def start():
                                '3. Выход\n'
                                '---------------------\n'
                                'Ваш выбор:'))
+            if choice != 3:
+                process_user_choice(choice, person)
             if choice == 3:
                 break
-            process_user_choice(choice, person)
-    else:
-        print('Номер карты или пин код введены не верно!')
 
 
 start()
