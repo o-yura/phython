@@ -3,21 +3,38 @@
 # из которой запущен данный скрипт.
 # И второй скрипт, удаляющий эти папки.
 
-import os
+from os import mkdir, rmdir, listdir, path
+
+
+def create_dir(dir_name):
+    try:
+        mkdir(dir_name)
+    except FileExistsError:
+        print('Папка уже существует:',dir_name)
+    except Exception as e:
+        print(e.__class__)
+
+
+def remove_dir(dir_name):
+    try:
+        rmdir(dir_name)
+    except FileNotFoundError:
+        print('Папки не существует:', dir_name)
+    except Exception as e:
+        print(e.__class__)
+
 
 for i in range(1, 10):
-    dirname = 'dir_' + str(i)
-    os.mkdir(dirname)
+    create_dir('dir_' + str(i))
 
 for i in range(1, 10):
-    dirname = 'dir_' + str(i)
-    os.rmdir(dirname)
+    remove_dir('dir_' + str(i))
 
 # Задача-2:
 # Напишите скрипт, отображающий папки текущей директории.
 
-for name in os.listdir():
-    if os.path.isdir(name):
+for name in listdir():
+    if path.isdir(name):
         print(name)
 
 # Задача-3:
