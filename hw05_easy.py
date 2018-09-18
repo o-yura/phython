@@ -10,7 +10,7 @@ def create_dir(dir_name):
     try:
         mkdir(dir_name)
     except FileExistsError:
-        print('Папка уже существует:',dir_name)
+        print('Папка уже существует:', dir_name)
     except Exception as e:
         print(e.__class__)
 
@@ -24,24 +24,27 @@ def remove_dir(dir_name):
         print(e.__class__)
 
 
-for i in range(1, 10):
-    create_dir('dir_' + str(i))
+if __name__ == '__main__':
+    for i in range(1, 10):
+        create_dir('dir_' + str(i))
 
-for i in range(1, 10):
-    remove_dir('dir_' + str(i))
+    for i in range(1, 10):
+        remove_dir('dir_' + str(i))
 
-# Задача-2:
-# Напишите скрипт, отображающий папки текущей директории.
+    # Задача-2:
+    # Напишите скрипт, отображающий папки текущей директории.
 
-for name in listdir():
-    if path.isdir(name):
-        print(name)
+if __name__ == '__main__':
+    for name in listdir():
+        if path.isdir(name):
+            print(name)
 
-# Задача-3:
-# Напишите скрипт, создающий копию файла, из которого запущен данный скрипт.
+    # Задача-3:
+    # Напишите скрипт, создающий копию файла, из которого запущен данный скрипт.
 
-from shutil import copyfile
+if __name__ == '__main__':
+    from shutil import copyfile
 
-a3_name = (__file__)
-a3_copy = a3_name + '_bkp'
-copyfile(a3_name, a3_copy)
+    a3_name = (__file__)
+    a3_copy = a3_name + '_bkp'
+    copyfile(a3_name, a3_copy)
