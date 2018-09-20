@@ -91,7 +91,8 @@ def goto_dir():
     dir_name = os.path.join(os.getcwd(), unit_name)
     try:
         os.chdir(dir_name)
-        print('Текущая папка:', os.getcwd())
+        print('Переход в папку {} в текущей сессии'.format(os.getcwd()))
+        print('Сессия завершена')
     except FileNotFoundError:
         print('Папки {} не существует'.format(unit_name))
 
