@@ -78,6 +78,8 @@ def rem_file():
             print('Файл {} удален'.format(unit_name))
         except FileNotFoundError:
             print('Файла {} не существует'.format(unit_name))
+        except IsADirectoryError:
+            print('{} не файл, а директория'.format(unit_name))
     else:
         print('Операция отменена')
 
@@ -90,8 +92,8 @@ def goto_dir():
     try:
         os.chdir(dir_name)
         print('Текущая папка:', os.getcwd())
-    except FileExistsError:
-        print('директория {} уже существует'.format(unit_name))
+    except FileNotFoundError:
+        print('Папки {} не существует'.format(unit_name))
 
 
 def list_path():
