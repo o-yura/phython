@@ -124,23 +124,46 @@ class Ticket:
         print('----------------------------------')
 
 
-bag1 = Bag('meshok')
-bag1.gen()
+class Game:
+    def __init__(self, player, enemy):
+        self.player = player
+        self.enemy = enemy
 
-tick1 = Ticket('my')
-tick1.gen()
-tick1.print_out()
+    def start(self):
+        bag1 = Bag('meshok')
+        bag1.gen()
 
-tick2 = Ticket('pc')
-tick2.gen()
-tick2.print_out()
+        tick1 = Ticket(self.player)
+        tick1.gen()
 
-# print(tick1.search(27))
+        tick2 = Ticket(self.enemy)
+        tick2.gen()
 
-# while True:
-#     number = bag1.pull()
-#     if number:
-#         print(number)
-#     else:
-#
-#         break
+        while True:
+            number = bag1.pull()
+            if number:
+                print('Из мешка вынут боченок:', number)
+                tick1.print_out()
+                tick2.print_out()
+                print('Введите 1, чтобы зачеркнуть иначе игра будет продолжена')
+                user_in = input('Зачеркнуть или продолжить?:')
+                if user_in == '1':
+                    if tick1.search(number):
+                        print('Номер зачеркивается')
+                    else:
+                        print('Номера в карточке не существует, вы проиграли!')
+                        break
+                else:
+                    if tick1.search(number):
+                        print('Пропущен существующий в карточке номер, вы проиграли!')
+                        break
+
+
+            else:
+                break
+
+
+player1 = 'Пользователь'
+player2 = 'Компьютер'
+game = Game(player1, player2)
+game.start()
