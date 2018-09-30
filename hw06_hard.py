@@ -10,49 +10,67 @@
 
 # Задача - 2
 # Доработайте нашу фабрику, создайте по одному классу на каждый тип, теперь надо в классе фабрика
-# исходя из типа игрушки отдавать конкретный объект класса, который наследуется от базового - Игрушка
+# исходя из типа игрушки отдавать конкретный класс, который наследуется от базового - Игрушка
+
 
 class Toy:
-    def __init__(self, name, color, type):
-        self._name = name
-        self._color = color
-        self._type = type
+
+    def __init__(self, name, color):
+        self.name = name
+        self.color = color
 
 
-class Create_Toy(Toy):
+class ToyAnimal(Toy):
 
-    def purchase(self):
-        print('Ведется закупка сырья для', self._name)
-
-    def building(self):
-        print('Ведется сборка изделия -', self._name)
-
-    def coloring(self):
-        print('Окраска изделия -', self._name)
+    def __init__(self, name, color):
+        super().__init__(name, color)
+        self._type = 'Животное'
 
 
-class Hard_toy(Create_Toy):
+class ToyMult(Toy):
 
-    def comp(self):
-        print('Ведется обработка пластика, металла', self._name)
-
-
-class Soft_toy(Create_Toy):
-
-    def comp(self):
-        print('Ведется обработка мягкого изделия', self._name)
+    def __init__(self, name, color):
+        super().__init__(name, color)
+        self._type = 'Мультфильм'
 
 
-toy_1 = Soft_toy('bear', 'white', 'soft toy')
-toy_1.purchase()
-toy_1.comp()
-toy_1.building()
-toy_1.coloring()
-print(type(toy_1))
+class ToyToxic(Toy):
 
-toy_2 = Hard_toy('train', 'black', 'hard toy')
-toy_2.purchase()
-toy_2.comp()
-toy_2.building()
-toy_2.coloring()
-print(type(toy_2))
+    def __init__(self, name, color):
+        super().__init__(name, color)
+        self._type = 'Токсичная игрушка'
+
+
+class ToyFactory:
+
+    def create_toy(self, name, color, toy_type):
+        self._buy_raw_materials()
+        self._sewing()
+        self._set_color()
+        if toy_type == 'Животное':
+            return ToyAnimal(name, color)
+        elif toy_type == 'Мультфильм':
+            return ToyMult(name, color)
+        else:
+            return ToyToxic(name, color)
+
+    def _buy_raw_materials(self):
+        print('Закупка материалов.')
+
+    def _sewing(self):
+        print('Пошивка игрушки.')
+
+    def _set_color(self):
+        print('Окраска игрушки.')
+
+
+factory = ToyFactory()
+toy = factory.create_toy('Вася', 'синий', 'Животное')
+print(isinstance(toy, ToyMult))
+print(isinstance(toy, ToyAnimal))
+print(isinstance(toy, Toy))
+
+if isinstance(toy, ToyToxic):
+    print('Опасно для детей!')
+else:
+    print('Можно дать ребенку')
