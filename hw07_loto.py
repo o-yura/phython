@@ -119,7 +119,7 @@ class Ticket:
             new_tank.append(new_line)
         self.tank = new_tank
 
-    ### внутрення функция замешивания номеров в билете
+    ### внутренняя функция замешивания номеров в билете
     def _mix_numbers(self, line):
         new_line = [0, 0, 0, 0, 0, 0, 0, 0, 0]
         indexes = []
@@ -172,7 +172,7 @@ class Game:
                 print('Из мешка вынут боченок: {}. Осталось в мешке - {} '.format(number, bag1._numbers))
                 tick1.print_out()
                 tick2.print_out()
-                print('Введите 1, чтобы зачеркнуть иначе игра будет продолжена')
+                print('Введите 1, чтобы зачеркнуть, иначе игра будет продолжена')
                 user_in = input('Зачеркнуть или продолжить?:')
                 if user_in == '1':
                     if tick1.search(number):
@@ -186,10 +186,13 @@ class Game:
                         break
                 if tick2.search(number):
                     tick2.fix_number(number)
-                if tick1._numbers == 0:
+                if tick1._numbers == 0 and tick2._numbers == 0:
+                    print('Ничья!')
+                    break
+                elif tick1._numbers == 0:
                     print('Выиграл игрок', tick1.name)
                     break
-                if tick2._numbers == 0:
+                elif tick2._numbers == 0:
                     print('Выиграл игрок', tick2.name)
                     break
             else:
