@@ -47,3 +47,52 @@
 #
 # Подсказка: каждый следующий случайный бочонок из мешка удобно получать
 # с помощью функции-генератора.
+
+import random
+
+
+class Bag:
+
+    def __init__(self, name):
+        self.name = name
+
+    def gen(self):
+        self.tank = []
+        for i in range(1, 11):
+            self.tank.append(i)
+
+    def pull(self):
+        try:
+            number = random.choice(self.tank)
+            self.tank.remove(number)
+            return number
+        except IndexError:
+            print('Мешок пуст')
+
+
+class Ticket:
+    def __init__(self, name):
+        self.name = name
+
+    def gen(self):
+        for i in range(1, 91):
+            pass
+            # print(i)
+
+
+bag1 = Bag('meshok')
+bag1.gen()
+
+tick1 = Ticket.gen('my')
+
+while True:
+    number = bag1.pull()
+    if number:
+        print(number)
+    else:
+
+        break
+
+#
+# print(meshok)
+# print(number)
