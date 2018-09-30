@@ -51,18 +51,21 @@
 import random
 
 
+### класс работы с мешком
 class Bag:
 
     def __init__(self, name):
         self.name = name
-        self._numbers = 0
+        self._numbers = 0  # количество боченков в мешке
 
+    ### функция наполнения мешка
     def gen(self):
         self.tank = []
         for i in range(1, 91):
             self.tank.append(i)
             self._numbers += 1
 
+    ### вынимаем боченок
     def pull(self):
         try:
             number = random.choice(self.tank)
@@ -73,11 +76,13 @@ class Bag:
             print('Мешок пуст')
 
 
+### класс работы с билетами
 class Ticket:
     def __init__(self, name):
         self.name = name
-        self._numbers = 0
+        self._numbers = 0  # количество незачеркнутых номеров в билете
 
+    ### генератор номеров билета
     def gen(self):
         self.tank = []
         for i in range(1, 4):
@@ -93,6 +98,7 @@ class Ticket:
             line = self._mix_numbers(line)
             self.tank.append(line)
 
+    ### поиск номера в билете
     def search(self, number):
         for line in self.tank:
             for unit in line:
@@ -100,6 +106,7 @@ class Ticket:
                     return True
         return False
 
+    ### зачеркивание номера в билете
     def fix_number(self, number):
         new_tank = []
         for line in self.tank:
@@ -112,6 +119,7 @@ class Ticket:
             new_tank.append(new_line)
         self.tank = new_tank
 
+    ### внутрення функция замешивания номеров в билете
     def _mix_numbers(self, line):
         new_line = [0, 0, 0, 0, 0, 0, 0, 0, 0]
         indexes = []
@@ -128,6 +136,7 @@ class Ticket:
             i += 1
         return new_line
 
+    ### вывод билета на экран
     def print_out(self):
         print('Билет игрока: {}, осталось номеров: {}'.format(self.name, self._numbers))
         print('----------------------------------')
@@ -141,6 +150,7 @@ class Ticket:
         print('----------------------------------')
 
 
+### класс игрового процесса
 class Game:
     def __init__(self, player, enemy):
         self.player = player
@@ -159,7 +169,6 @@ class Game:
         while True:
             number = bag1.pull()
             if number:
-                # print ("\n" * 100)
                 print('Из мешка вынут боченок: {}. Осталось в мешке - {} '.format(number, bag1._numbers))
                 tick1.print_out()
                 tick2.print_out()
@@ -179,8 +188,10 @@ class Game:
                     tick2.fix_number(number)
                 if tick1._numbers == 0:
                     print('Выиграл игрок', tick1.name)
+                    break
                 if tick2._numbers == 0:
                     print('Выиграл игрок', tick2.name)
+                    break
             else:
                 break
 
