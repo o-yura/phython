@@ -95,6 +95,17 @@ class Ticket:
                     return True
         return False
 
+    def fix_number(self, number):
+        new_tank = []
+        for line in self.tank:
+            new_line = []
+            for unit in line:
+                if number == unit:
+                    unit = '-'
+                new_line.append(unit)
+            new_tank.append(new_line)
+        self.tank = new_tank
+
     def _mix_numbers(self, line):
         new_line = [0, 0, 0, 0, 0, 0, 0, 0, 0]
         indexes = []
@@ -150,6 +161,7 @@ class Game:
                 if user_in == '1':
                     if tick1.search(number):
                         print('Номер зачеркивается')
+                        tick1.fix_number(number)
                     else:
                         print('Номера в карточке не существует, вы проиграли!')
                         break
@@ -157,8 +169,8 @@ class Game:
                     if tick1.search(number):
                         print('Пропущен существующий в карточке номер, вы проиграли!')
                         break
-
-
+                if tick2.search(number):
+                    tick2.fix_number(number)
             else:
                 break
 
