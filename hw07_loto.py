@@ -58,7 +58,7 @@ class Bag:
 
     def gen(self):
         self.tank = []
-        for i in range(1, 11):
+        for i in range(1, 91):
             self.tank.append(i)
 
     def pull(self):
@@ -75,24 +75,72 @@ class Ticket:
         self.name = name
 
     def gen(self):
-        for i in range(1, 91):
-            pass
-            # print(i)
+        self.tank = []
+        for i in range(1, 4):
+            line = []
+            x = 1
+            while x < 6:
+                number = random.randint(1, 90)
+                if not self.search(number) and number not in line:
+                    line.append(number)
+                    x += 1
+            line = sorted(line)
+            line = self._mix_numbers(line)
+            self.tank.append(line)
+
+    def search(self, number):
+        for line in self.tank:
+            for unit in line:
+                if number == unit:
+                    return True
+        return False
+
+    def _mix_numbers(self, line):
+        new_line = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        indexes = []
+        i = 0
+        while i < 5:
+            index = random.randint(0, 8)
+            if index not in indexes:
+                indexes.append(index)
+                i += 1
+        indexes = sorted(indexes)
+        i = 0
+        for number in line:
+            new_line[indexes[i]] = number
+            i += 1
+        return new_line
+
+    def print_out(self):
+        print('Билет игрока:', self.name)
+        print('----------------------------------')
+        for line in self.tank:
+            string = ''
+            for unit in line:
+                if unit == 0:
+                    unit = ' '
+                string = string + str(unit) + '\t'
+            print(string)
+        print('----------------------------------')
 
 
 bag1 = Bag('meshok')
 bag1.gen()
 
-tick1 = Ticket.gen('my')
+tick1 = Ticket('my')
+tick1.gen()
+tick1.print_out()
 
-while True:
-    number = bag1.pull()
-    if number:
-        print(number)
-    else:
+tick2 = Ticket('pc')
+tick2.gen()
+tick2.print_out()
 
-        break
+# print(tick1.search(27))
 
+# while True:
+#     number = bag1.pull()
+#     if number:
+#         print(number)
+#     else:
 #
-# print(meshok)
-# print(number)
+#         break
