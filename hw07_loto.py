@@ -55,16 +55,19 @@ class Bag:
 
     def __init__(self, name):
         self.name = name
+        self._numbers = 0
 
     def gen(self):
         self.tank = []
         for i in range(1, 91):
             self.tank.append(i)
+            self._numbers += 1
 
     def pull(self):
         try:
             number = random.choice(self.tank)
             self.tank.remove(number)
+            self._numbers -= 1
             return number
         except IndexError:
             print('Мешок пуст')
@@ -73,6 +76,7 @@ class Bag:
 class Ticket:
     def __init__(self, name):
         self.name = name
+        self._numbers = 0
 
     def gen(self):
         self.tank = []
@@ -84,6 +88,7 @@ class Ticket:
                 if not self.search(number) and number not in line:
                     line.append(number)
                     x += 1
+                    self._numbers += 1
             line = sorted(line)
             line = self._mix_numbers(line)
             self.tank.append(line)
@@ -102,6 +107,7 @@ class Ticket:
             for unit in line:
                 if number == unit:
                     unit = '-'
+                    self._numbers -= 1
                 new_line.append(unit)
             new_tank.append(new_line)
         self.tank = new_tank
@@ -123,7 +129,7 @@ class Ticket:
         return new_line
 
     def print_out(self):
-        print('Билет игрока:', self.name)
+        print('Билет игрока: {}, осталось номеров: {}'.format(self.name, self._numbers))
         print('----------------------------------')
         for line in self.tank:
             string = ''
@@ -153,14 +159,14 @@ class Game:
         while True:
             number = bag1.pull()
             if number:
-                print('Из мешка вынут боченок:', number)
+                # print ("\n" * 100)
+                print('Из мешка вынут боченок: {}. Осталось в мешке - {} '.format(number, bag1._numbers))
                 tick1.print_out()
                 tick2.print_out()
                 print('Введите 1, чтобы зачеркнуть иначе игра будет продолжена')
                 user_in = input('Зачеркнуть или продолжить?:')
                 if user_in == '1':
                     if tick1.search(number):
-                        print('Номер зачеркивается')
                         tick1.fix_number(number)
                     else:
                         print('Номера в карточке не существует, вы проиграли!')
@@ -171,6 +177,10 @@ class Game:
                         break
                 if tick2.search(number):
                     tick2.fix_number(number)
+                if tick1._numbers == 0:
+                    print('Выиграл игрок', tick1.name)
+                if tick2._numbers == 0:
+                    print('Выиграл игрок', tick2.name)
             else:
                 break
 
